@@ -115,7 +115,7 @@ biblioteca/
 ---
 
 ## Model de dades
-
+![Diagrama E-R](docs/diagrama-ER-visual.png)
 ### Entitats i relacions
 
 - **Llibre** — Entitat principal (CRUD complet): títol, autor, ISBN, pàgines, idioma, any de publicació.
