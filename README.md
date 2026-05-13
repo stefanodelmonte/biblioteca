@@ -92,9 +92,11 @@ biblioteca/
 ├── .gitignore
 ├── docs/
 │   ├── diagrama-ER.png
-│   ├── diagrama-classes.png
-│   ├── dump.sql
-│   └── queries.sql
+│   ├── diagrama-ER-visual.png
+│   ├── diagrama-ER.drawio
+│   ├── diagrama-classes.png        ← pendent
+│   ├── dump.sql                    ← pendent
+│   └── queries.sql                 ← pendent
 └── src/main/
     ├── java/com/example/biblioteca/
     │   ├── BibliotecaApplication.java
@@ -116,6 +118,7 @@ biblioteca/
 
 ## Model de dades
 ![Diagrama E-R](docs/diagrama-ER-visual.png)
+> *Diagrama il·lustratiu. El diagrama tècnic complet es troba a [`docs/diagrama-ER.png`](docs/diagrama-ER.png).*
 ### Entitats i relacions
 
 - **Llibre** — Entitat principal (CRUD complet): títol, autor, ISBN, pàgines, idioma, any de publicació.
