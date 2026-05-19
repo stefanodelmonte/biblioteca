@@ -1,0 +1,360 @@
+/* ============================================================
+   style.css — Estils globals de la Biblioteca Personal
+   Tipografia: Times New Roman (serif clàssica)
+   Colors: negre, blanc i blau
+   Fons: quadrícula de punts blaus sobre blanc (viu i minimalista)
+   ============================================================ */
+
+/* ── Reset i base ──────────────────────────────────────────── */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Times New Roman dona un aire literari i clàssic, adequat per a una biblioteca */
+    font-family: 'Times New Roman', Times, serif;
+    color: #000;
+
+    /* Fons viu i minimalista: quadrícula de punts blaus sobre blanc.
+       radial-gradient crea un punt blau clar cada 22px, donant textura sense distreure. */
+    background-color: #ffffff;
+    background-image: radial-gradient(circle, #b8cce4 1px, transparent 1px);
+    background-size: 22px 22px;
+
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ── Navbar ────────────────────────────────────────────────── */
+.navbar {
+    /* Blau fosc que contrasta bé amb el blanc del fons */
+    background-color: #0a1f44;
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Línia blava brillant a la part inferior per separar del contingut */
+    border-bottom: 3px solid #1a56db;
+}
+
+.navbar-brand {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+.navbar-brand:hover {
+    color: #a8c4e8;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #d0e0f5;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    /* Línia decorativa a sota que apareix en hover */
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    border-bottom-color: #1a56db;
+}
+
+/* ── Contenidor principal ──────────────────────────────────── */
+.container {
+    max-width: 1000px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+}
+
+/* ── Capçalera de pàgina ───────────────────────────────────── */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.8rem;
+    /* Línia divisora sota la capçalera */
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #0a1f44;
+}
+
+.page-header h1 {
+    font-size: 1.8rem;
+    color: #0a1f44;
+    font-style: italic; /* Times New Roman en cursiva és molt elegant */
+}
+
+/* ── Hero (pàgina d'inici) ─────────────────────────────────── */
+.hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem;
+}
+
+.hero h1 {
+    font-size: 2.4rem;
+    color: #0a1f44;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: #333;
+    margin-bottom: 2.5rem;
+}
+
+/* ── Grid de targetes (pàgina d'inici) ────────────────────── */
+.cards-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    /* Blanc sòlid perquè el fons puntejat es vegi al voltant */
+    background: #ffffff;
+    border: 1px solid #0a1f44;
+    border-top: 4px solid #1a56db; /* Accent blau brillant a la part superior */
+    border-radius: 2px;
+    padding: 2rem;
+    width: 270px;
+    box-shadow: 4px 4px 0px #0a1f44; /* Ombra desplaçada, estètica editorial */
+}
+
+.card h2 {
+    margin-bottom: 0.8rem;
+    color: #0a1f44;
+    font-size: 1.3rem;
+}
+
+.card p {
+    color: #444;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* ── Botons ────────────────────────────────────────────────── */
+.btn {
+    display: inline-block;
+    background-color: #1a56db;
+    color: #ffffff;
+    padding: 0.5rem 1.3rem;
+    border-radius: 2px;
+    text-decoration: none;
+    border: 2px solid #1a56db;
+    cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    background-color: #0a1f44;
+    border-color: #0a1f44;
+    color: #ffffff;
+}
+
+/* Botó petit per a les accions de la taula */
+.btn-sm {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+/* Botó secundari (cancel·lar): contorn blau sobre blanc */
+.btn-secondary {
+    background-color: #ffffff;
+    color: #0a1f44;
+    border-color: #0a1f44;
+}
+
+.btn-secondary:hover {
+    background-color: #0a1f44;
+    color: #ffffff;
+}
+
+/* Botó d'eliminar */
+.btn-danger {
+    background-color: #ffffff;
+    color: #c0392b;
+    border-color: #c0392b;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    color: #ffffff;
+}
+
+/* ── Taula de llibres ──────────────────────────────────────── */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #0a1f44;
+    box-shadow: 4px 4px 0px #0a1f44;
+}
+
+.table thead {
+    background-color: #0a1f44;
+    color: #ffffff;
+}
+
+.table th {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    font-style: italic;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+    border-right: 1px solid #1a3a6b;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dde6f5;
+    border-right: 1px solid #eef2fa;
+    color: #111;
+}
+
+.table tbody tr:hover {
+    background-color: #eef5ff;
+}
+
+/* Cel·la d'accions */
+.accions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+/* ── Formulari ─────────────────────────────────────────────── */
+.form-card {
+    background: #ffffff;
+    border: 1px solid #0a1f44;
+    border-top: 4px solid #1a56db;
+    padding: 2rem 2.5rem;
+    max-width: 620px;
+    box-shadow: 4px 4px 0px #0a1f44;
+}
+
+.form-group {
+    margin-bottom: 1.3rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+    color: #0a1f44;
+}
+
+/* Camps de text, número i select */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #555;
+    border-radius: 2px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    color: #000;
+    background-color: #fafcff; /* Fons lleugerament blavós als camps */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #1a56db;
+    box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.2);
+    background-color: #ffffff;
+}
+
+/* Classe afegida per Thymeleaf quan hi ha errors de validació */
+.is-invalid {
+    border-color: #c0392b !important;
+    background-color: #fff8f8 !important;
+}
+
+/* Missatge d'error de validació */
+.error {
+    color: #c0392b;
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-style: italic;
+}
+
+/* Select múltiple de categories */
+.multiselect {
+    height: 120px;
+}
+
+.form-group small {
+    display: block;
+    color: #666;
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
+/* Botons del formulari */
+.form-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+}
+
+/* Asterisc de camp obligatori */
+.obligatori {
+    color: #c0392b;
+    font-style: normal;
+}
+
+.nota-obligatori {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* ── Missatge informatiu (llista buida) ────────────────────── */
+.alert-info {
+    background: #eef5ff;
+    border-left: 4px solid #1a56db;
+    padding: 1rem 1.4rem;
+    color: #0a1f44;
+    font-style: italic;
+}
+
+.alert-info a {
+    color: #1a56db;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.footer {
+    background-color: #0a1f44;
+    color: #d0e0f5;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.88rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    border-top: 3px solid #1a56db;
+    margin-top: auto;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+  index.html — Pàgina d'inici de la Biblioteca Personal.
+  Mostra una benvinguda i accessos directes a les seccions principals.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <!-- Reutilitzem el fragment head del layout, passant el títol d'aquesta pàgina -->
+    <th:block th:replace="~{fragments/layout :: head('Inici')}"></th:block>
+</head>
+
+<body>
+
+<!-- Navbar reutilitzable -->
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<!-- ── Contingut principal ──────────────────────────────────────────────── -->
+<main class="container">
+
+    <div class="hero">
+        <h1>Benvingut a la teva Biblioteca Personal</h1>
+        <p>Gestiona els teus llibres, registra les teves lectures i organitza la teva col·lecció.</p>
+    </div>
+
+    <!-- Targetes d'accés ràpid a les seccions -->
+    <div class="cards-grid">
+
+        <div class="card">
+            <h2>Llibres</h2>
+            <p>Consulta, afegeix i edita els llibres de la teva col·lecció.</p>
+            <!-- th:href genera la URL de forma segura a partir del context de l'aplicació -->
+            <a th:href="@{/llibres}" class="btn">Veure llibres</a>
+        </div>
+
+        <div class="card">
+            <h2>Afegir llibre</h2>
+            <p>Registra un nou llibre a la teva biblioteca.</p>
+            <a th:href="@{/llibres/nou}" class="btn">Nou llibre</a>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Footer reutilitzable -->
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>
