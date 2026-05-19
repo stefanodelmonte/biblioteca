@@ -15,7 +15,8 @@ public class Llibre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @NotBlank valida que el camp no sigui ni null ni buit (requereix spring-boot-starter-validation)
+    // @NotBlank valida que el camp no sigui ni null ni buit (requereix
+    // spring-boot-starter-validation)
     @NotBlank(message = "El títol és obligatori")
     @Column(nullable = false)
     private String titol;
