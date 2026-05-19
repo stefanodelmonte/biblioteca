@@ -18,19 +18,35 @@ public class Etiqueta {
     @ManyToMany(mappedBy = "etiquetes")
     private Set<Lectura> lectures = new HashSet<>();
 
-    public Etiqueta() {}
+    public Etiqueta() {
+    }
 
     public Etiqueta(String nom) {
         this.nom = nom;
     }
 
     // Getters i setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Set<Lectura> getLectures() { return lectures; }
-    public void setLectures(Set<Lectura> lectures) { this.lectures = lectures; }
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Set<Lectura> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(Set<Lectura> lectures) {
+        this.lectures = lectures;
+    }
 }

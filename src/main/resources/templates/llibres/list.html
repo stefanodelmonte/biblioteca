@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+  list.html — Llistat de tots els llibres de la col·lecció.
+  Mostra una taula amb les dades principals i botons d'acció per a cada llibre.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Llibres')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>Els meus llibres</h1>
+        <!-- Botó per anar al formulari de creació d'un nou llibre -->
+        <a th:href="@{/llibres/nou}" class="btn">+ Nou llibre</a>
+    </div>
+
+    <!-- ── Taula de llibres ──────────────────────────────────────────────── -->
+    <!--
+      th:if / th:unless permeten mostrar contingut condicionalment.
+      Si no hi ha llibres, mostrem un missatge; si n'hi ha, mostrem la taula.
+    -->
+    <div th:if="${#lists.isEmpty(llibres)}" class="alert-info">
+        <p>Encara no tens cap llibre registrat. <a th:href="@{/llibres/nou}">Afegeix-ne un!</a></p>
+    </div>
+
+    <table th:unless="${#lists.isEmpty(llibres)}" class="table">
+        <thead>
+            <tr>
+                <th>Títol</th>
+                <th>Autor</th>
+                <th>Pàgines</th>
+                <th>Any</th>
+                <th>Idioma</th>
+                <th>Categories</th>
+                <th>Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--
+              th:each itera sobre la llista de llibres.
+              Per a cada element crea una fila <tr>.
+            -->
+            <tr th:each="llibre : ${llibres}">
+                <!-- th:text substitueix el contingut de la cel·la pel valor de l'atribut -->
+                <td th:text="${llibre.titol}">Títol</td>
+                <td th:text="${llibre.autor}">Autor</td>
+                <!-- El '?' és l'operador safe-navigation: evita NullPointerException si és null -->
+                <td th:text="${llibre.pagines} ?: '-'">-</td>
+                <td th:text="${llibre.anyPublicacio} ?: '-'">-</td>
+                <td th:text="${llibre.idioma} ?: '-'">-</td>
+                <td>
+                    <!--
+                      Mostrem les categories separades per comes.
+                      th:each dins d'una cel·la itera sobre el Set de categories del llibre.
+                    -->
+                    <span th:each="cat, iterStat : ${llibre.categories}">
+                        <span th:text="${cat.nom}">Categoria</span>
+                        <!-- Afegim coma excepte a l'últim element -->
+                        <span th:if="${!iterStat.last}">, </span>
+                    </span>
+                    <!-- Si no té categories, mostrem un guió -->
+                    <span th:if="${#sets.isEmpty(llibre.categories)}">-</span>
+                </td>
+                <td class="accions">
+                    <!-- Botó editar: inclou l'id del llibre a la URL -->
+                    <a th:href="@{/llibres/editar/{id}(id=${llibre.id})}" class="btn btn-sm">Editar</a>
+                    <!-- Botó eliminar amb confirmació JavaScript per evitar eliminacions accidentals -->
+                    <a th:href="@{/llibres/eliminar/{id}(id=${llibre.id})}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Segur que vols eliminar aquest llibre?')">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

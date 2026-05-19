@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+  layout.html — Plantilla base reutilitzable amb Thymeleaf fragments.
+  Totes les pàgines de l'aplicació inclouen aquesta estructura
+  mitjançant th:replace="~{fragments/layout :: nomFragment}".
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<!-- ── FRAGMENT: head ──────────────────────────────────────────────────────
+     Conté les metadades i l'enllaç al full d'estils.
+     Ús: th:replace="~{fragments/layout :: head(titol='El meu títol')}"
+-->
+<head th:fragment="head(titol)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Títol dinàmic: cada pàgina passa el seu títol com a paràmetre -->
+    <title th:text="${titol} + ' | Biblioteca Personal'">Biblioteca Personal</title>
+    <!-- Full d'estils propi -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<!-- ── FRAGMENT: navbar ────────────────────────────────────────────────────
+     Barra de navegació present a totes les pàgines.
+-->
+<body>
+<nav th:fragment="navbar">
+    <div class="navbar">
+        <a class="navbar-brand" th:href="@{/}">Biblioteca Personal</a>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Inici</a></li>
+            <li><a th:href="@{/llibres}">Llibres</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── FRAGMENT: footer ────────────────────────────────────────────────────
+     Peu de pàgina comú.
+-->
+<footer th:fragment="footer">
+    <div class="footer">
+        <p>Biblioteca Personal &copy; 2026 — Projecte Final 1r DAM</p>
+    </div>
+</footer>
+</body>
+</html>
