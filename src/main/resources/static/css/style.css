@@ -1,8 +1,8 @@
 /* ============================================================
-   style.css — Estils globals de la Biblioteca Personal
-   Tipografia: Times New Roman (serif clàssica)
-   Colors: negre, blanc i blau
-   Fons: quadrícula de punts blaus sobre blanc (viu i minimalista)
+   style.css — Biblioteca Personal
+   Fons: fosc amb gradient radial (viu i minimalista)
+   Text: blanc (#ffffff) i blau (#4d8ef0)
+   Tipografia: Times New Roman
    ============================================================ */
 
 /* ── Reset i base ──────────────────────────────────────────── */
@@ -13,15 +13,17 @@
 }
 
 body {
-    /* Times New Roman dona un aire literari i clàssic, adequat per a una biblioteca */
     font-family: 'Times New Roman', Times, serif;
-    color: #000;
+    color: #ffffff;
 
-    /* Fons viu i minimalista: quadrícula de punts blaus sobre blanc.
-       radial-gradient crea un punt blau clar cada 22px, donant textura sense distreure. */
-    background-color: #ffffff;
-    background-image: radial-gradient(circle, #b8cce4 1px, transparent 1px);
-    background-size: 22px 22px;
+    /* Fons viu: gradient radial que simula una llum suau a la part superior,
+       típic dels portfolis foscos moderns */
+    background-color: #060c14;
+    /* Graella subtil de fons */
+    background-image:
+        linear-gradient(rgba(77, 142, 240, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 142, 240, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
 
     line-height: 1.7;
     display: flex;
@@ -31,26 +33,30 @@ body {
 
 /* ── Navbar ────────────────────────────────────────────────── */
 .navbar {
-    /* Blau fosc que contrasta bé amb el blanc del fons */
-    background-color: #0a1f44;
-    padding: 0.9rem 2rem;
+    background-color: rgba(6, 12, 20, 0.85);
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 10;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Línia blava brillant a la part inferior per separar del contingut */
-    border-bottom: 3px solid #1a56db;
+    border-bottom: 1px solid #4d8ef0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .navbar-brand {
     color: #ffffff;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: bold;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
 }
 
 .navbar-brand:hover {
-    color: #a8c4e8;
+    color: #4d8ef0;
 }
 
 .nav-links {
@@ -60,19 +66,18 @@ body {
 }
 
 .nav-links a {
-    color: #d0e0f5;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1rem;
-    letter-spacing: 0.02em;
-    /* Línia decorativa a sota que apareix en hover */
-    border-bottom: 2px solid transparent;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid transparent;
     padding-bottom: 2px;
     transition: color 0.2s, border-color 0.2s;
 }
 
 .nav-links a:hover {
-    color: #ffffff;
-    border-bottom-color: #1a56db;
+    color: #4d8ef0;
+    border-bottom-color: #4d8ef0;
 }
 
 /* ── Contenidor principal ──────────────────────────────────── */
@@ -81,6 +86,8 @@ body {
     margin: 2.5rem auto;
     padding: 0 1.5rem;
     flex: 1;
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Capçalera de pàgina ───────────────────────────────────── */
@@ -88,38 +95,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.8rem;
-    /* Línia divisora sota la capçalera */
+    margin-bottom: 2rem;
     padding-bottom: 0.8rem;
-    border-bottom: 2px solid #0a1f44;
+    border-bottom: 1px solid #4d8ef0;
 }
 
 .page-header h1 {
     font-size: 1.8rem;
-    color: #0a1f44;
-    font-style: italic; /* Times New Roman en cursiva és molt elegant */
+    color: #ffffff;
+    font-style: italic;
 }
 
 /* ── Hero (pàgina d'inici) ─────────────────────────────────── */
 .hero {
     text-align: center;
-    padding: 3.5rem 1rem 2.5rem;
+    padding: 4rem 1rem 3rem;
 }
 
 .hero h1 {
-    font-size: 2.4rem;
-    color: #0a1f44;
-    font-style: italic;
-    margin-bottom: 0.8rem;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 .hero p {
-    font-size: 1.15rem;
-    color: #333;
+    font-size: 1.1rem;
+    color: #ffffff;
+    opacity: 0.75;
     margin-bottom: 2.5rem;
 }
 
-/* ── Grid de targetes (pàgina d'inici) ────────────────────── */
+/* ── Grid de targetes ──────────────────────────────────────── */
 .cards-grid {
     display: flex;
     gap: 2rem;
@@ -128,24 +134,29 @@ body {
 }
 
 .card {
-    /* Blanc sòlid perquè el fons puntejat es vegi al voltant */
-    background: #ffffff;
-    border: 1px solid #0a1f44;
-    border-top: 4px solid #1a56db; /* Accent blau brillant a la part superior */
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(77, 142, 240, 0.3);
+    border-top: 2px solid #4d8ef0;
     border-radius: 2px;
     padding: 2rem;
     width: 270px;
-    box-shadow: 4px 4px 0px #0a1f44; /* Ombra desplaçada, estètica editorial */
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.card:hover {
+    background-color: rgba(77, 142, 240, 0.07);
+    border-color: #4d8ef0;
 }
 
 .card h2 {
     margin-bottom: 0.8rem;
-    color: #0a1f44;
+    color: #4d8ef0;
     font-size: 1.3rem;
 }
 
 .card p {
-    color: #444;
+    color: #ffffff;
+    opacity: 0.7;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
 }
@@ -153,52 +164,48 @@ body {
 /* ── Botons ────────────────────────────────────────────────── */
 .btn {
     display: inline-block;
-    background-color: #1a56db;
-    color: #ffffff;
-    padding: 0.5rem 1.3rem;
+    background-color: transparent;
+    color: #4d8ef0;
+    padding: 0.5rem 1.4rem;
     border-radius: 2px;
     text-decoration: none;
-    border: 2px solid #1a56db;
+    border: 1px solid #4d8ef0;
     cursor: pointer;
     font-family: 'Times New Roman', Times, serif;
     font-size: 0.95rem;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     transition: background-color 0.2s, color 0.2s;
 }
 
 .btn:hover {
-    background-color: #0a1f44;
-    border-color: #0a1f44;
+    background-color: #4d8ef0;
     color: #ffffff;
 }
 
-/* Botó petit per a les accions de la taula */
 .btn-sm {
     padding: 0.25rem 0.7rem;
     font-size: 0.85rem;
 }
 
-/* Botó secundari (cancel·lar): contorn blau sobre blanc */
+/* Botó secundari (cancel·lar) */
 .btn-secondary {
-    background-color: #ffffff;
-    color: #0a1f44;
-    border-color: #0a1f44;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary:hover {
-    background-color: #0a1f44;
+    background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
 /* Botó d'eliminar */
 .btn-danger {
-    background-color: #ffffff;
-    color: #c0392b;
-    border-color: #c0392b;
+    color: #ff5c5c;
+    border-color: #ff5c5c;
 }
 
 .btn-danger:hover {
-    background-color: #c0392b;
+    background-color: #ff5c5c;
     color: #ffffff;
 }
 
@@ -206,50 +213,46 @@ body {
 .table {
     width: 100%;
     border-collapse: collapse;
-    background: #ffffff;
-    border: 1px solid #0a1f44;
-    box-shadow: 4px 4px 0px #0a1f44;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(77, 142, 240, 0.2);
 }
 
 .table thead {
-    background-color: #0a1f44;
-    color: #ffffff;
+    background-color: rgba(77, 142, 240, 0.15);
+    border-bottom: 1px solid #4d8ef0;
 }
 
 .table th {
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1rem;
     text-align: left;
+    color: #4d8ef0;
     font-style: italic;
     font-weight: normal;
-    letter-spacing: 0.03em;
-    border-right: 1px solid #1a3a6b;
+    letter-spacing: 0.04em;
 }
 
 .table td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #dde6f5;
-    border-right: 1px solid #eef2fa;
-    color: #111;
+    padding: 0.8rem 1rem;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .table tbody tr:hover {
-    background-color: #eef5ff;
+    background-color: rgba(77, 142, 240, 0.07);
 }
 
-/* Cel·la d'accions */
 .accions {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.5rem;
 }
 
 /* ── Formulari ─────────────────────────────────────────────── */
 .form-card {
-    background: #ffffff;
-    border: 1px solid #0a1f44;
-    border-top: 4px solid #1a56db;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(77, 142, 240, 0.3);
+    border-top: 2px solid #4d8ef0;
     padding: 2rem 2.5rem;
     max-width: 620px;
-    box-shadow: 4px 4px 0px #0a1f44;
 }
 
 .form-group {
@@ -261,100 +264,150 @@ body {
     font-weight: bold;
     font-style: italic;
     margin-bottom: 0.3rem;
-    color: #0a1f44;
+    color: #4d8ef0;
 }
 
-/* Camps de text, número i select */
 .form-group input,
 .form-group select {
     width: 100%;
     padding: 0.5rem 0.8rem;
-    border: 1px solid #555;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1rem;
-    color: #000;
-    background-color: #fafcff; /* Fons lleugerament blavós als camps */
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: #1a56db;
-    box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.2);
-    background-color: #ffffff;
+    border-color: #4d8ef0;
+    box-shadow: 0 0 0 2px rgba(77, 142, 240, 0.2);
+    background-color: rgba(77, 142, 240, 0.05);
 }
 
-/* Classe afegida per Thymeleaf quan hi ha errors de validació */
+/* Opció de select en fons fosc */
+.form-group select option {
+    background-color: #1a1a2e;
+    color: #ffffff;
+}
+
 .is-invalid {
-    border-color: #c0392b !important;
-    background-color: #fff8f8 !important;
+    border-color: #ff5c5c !important;
 }
 
-/* Missatge d'error de validació */
 .error {
-    color: #c0392b;
+    color: #ff5c5c;
     font-size: 0.88rem;
     margin-top: 0.25rem;
     display: block;
     font-style: italic;
 }
 
-/* Select múltiple de categories */
 .multiselect {
     height: 120px;
 }
 
 .form-group small {
     display: block;
-    color: #666;
+    color: #ffffff;
+    opacity: 0.5;
     font-size: 0.82rem;
     margin-top: 0.3rem;
     font-style: italic;
 }
 
-/* Botons del formulari */
 .form-actions {
     display: flex;
     gap: 0.8rem;
     margin-top: 1.8rem;
 }
 
-/* Asterisc de camp obligatori */
 .obligatori {
-    color: #c0392b;
-    font-style: normal;
+    color: #ff5c5c;
 }
 
 .nota-obligatori {
     margin-top: 1rem;
     font-size: 0.85rem;
-    color: #666;
+    color: #ffffff;
+    opacity: 0.5;
     font-style: italic;
 }
 
 /* ── Missatge informatiu (llista buida) ────────────────────── */
 .alert-info {
-    background: #eef5ff;
-    border-left: 4px solid #1a56db;
+    background-color: rgba(77, 142, 240, 0.08);
+    border-left: 3px solid #4d8ef0;
     padding: 1rem 1.4rem;
-    color: #0a1f44;
+    color: #ffffff;
     font-style: italic;
 }
 
 .alert-info a {
-    color: #1a56db;
+    color: #4d8ef0;
+}
+
+/* ── Orbes de llum flotants (estil jhey.dev) ───────────────── */
+
+/* Orbe 1: cantonada superior esquerra */
+body::before {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: #4d8ef0;
+    /* filter: blur crea l'efecte de llum difusa característica */
+    filter: blur(120px);
+    opacity: 0.12;
+    top: -150px;
+    left: -150px;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat1 18s ease-in-out infinite;
+}
+
+/* Orbe 2: cantonada inferior dreta */
+body::after {
+    content: '';
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: #4d8ef0;
+    filter: blur(100px);
+    opacity: 0.10;
+    bottom: -120px;
+    right: -120px;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat2 14s ease-in-out infinite;
+}
+
+@keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    33%      { transform: translate(120px, 80px); }
+    66%      { transform: translate(60px, 160px); }
+}
+
+@keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    33%      { transform: translate(-100px, -60px); }
+    66%      { transform: translate(-160px, -120px); }
 }
 
 /* ── Footer ────────────────────────────────────────────────── */
 .footer {
-    background-color: #0a1f44;
-    color: #d0e0f5;
+    background-color: rgba(10, 10, 10, 0.9);
+    color: #ffffff;
+    opacity: 0.6;
     text-align: center;
-    padding: 1rem;
+    padding: 1.2rem;
     font-size: 0.88rem;
     font-style: italic;
-    letter-spacing: 0.03em;
-    border-top: 3px solid #1a56db;
+    letter-spacing: 0.04em;
+    border-top: 1px solid #4d8ef0;
     margin-top: auto;
 }

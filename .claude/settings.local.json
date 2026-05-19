@@ -3,7 +3,8 @@
     "allow": [
       "PowerShell(New-Item -ItemType Directory -Force \"src\\\\main\\\\resources\\\\templates\\\\fragments\")",
       "PowerShell(New-Item -ItemType Directory -Force \"src\\\\main\\\\resources\\\\templates\\\\llibres\")",
-      "PowerShell(New-Item -ItemType Directory -Force \"src\\\\main\\\\resources\\\\static\\\\css\")"
+      "PowerShell(New-Item -ItemType Directory -Force \"src\\\\main\\\\resources\\\\static\\\\css\")",
+      "PowerShell(.\\\\mvnw.cmd spring-boot:run 2>&1)"
     ]
   }
 }
