@@ -2,6 +2,7 @@ package com.example.biblioteca.controller;
 
 import com.example.biblioteca.model.Llibre;
 import com.example.biblioteca.service.CategoriaService;
+import com.example.biblioteca.service.LecturaService;
 import com.example.biblioteca.service.LlibreService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,26 +18,43 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/llibres")
 public class LlibreController {
 
-    // Injectem els serveis necessaris mitjançant el constructor (millor pràctica)
     private final LlibreService llibreService;
     private final CategoriaService categoriaService;
+    private final LecturaService lecturaService;
 
-    public LlibreController(LlibreService llibreService, CategoriaService categoriaService) {
+    public LlibreController(LlibreService llibreService, CategoriaService categoriaService,
+                            LecturaService lecturaService) {
         this.llibreService = llibreService;
         this.categoriaService = categoriaService;
+        this.lecturaService = lecturaService;
     }
 
     // ─── LLISTAT ────────────────────────────────────────────────────────────────
 
     /**
-     * Mostra la llista de tots els llibres.
-     * GET /llibres
+     * Mostra la llista de llibres, amb filtre opcional per títol/autor.
+     * GET /llibres o GET /llibres?cerca=tolkien
      */
     @GetMapping
-    public String llistar(Model model) {
-        // Obtenim tots els llibres i els passem a la vista
-        model.addAttribute("llibres", llibreService.llistarTots());
-        return "llibres/list"; // src/main/resources/templates/llibres/list.html
+    public String llistar(@RequestParam(required = false) String cerca, Model model) {
+        // Si hi ha text de cerca, filtrem; si no, retornem tots
+        model.addAttribute("llibres", llibreService.cercar(cerca));
+        model.addAttribute("cerca", cerca != null ? cerca : "");
+        return "llibres/list";
+    }
+
+    /**
+     * Mostra el detall d'un llibre amb les seves lectures associades.
+     * GET /llibres/{id}
+     */
+    @GetMapping("/{id}")
+    public String detall(@PathVariable Long id, Model model) {
+        Llibre llibre = llibreService.buscarPerId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Llibre no trobat: " + id));
+        model.addAttribute("llibre", llibre);
+        // Lectures associades a aquest llibre concretes
+        model.addAttribute("lectures", lecturaService.llistarPerLlibre(id));
+        return "llibres/detall";
     }
 
     // ─── CREAR ──────────────────────────────────────────────────────────────────

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+  list.html — Llistat de totes les lectures registrades.
+  Mostra una taula amb el llibre associat, l'estat, la valoració i les dates.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Lectures')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>Les meves lectures</h1>
+        <a th:href="@{/lectures/nova}" class="btn">+ Nova lectura</a>
+    </div>
+
+    <!-- Missatge si no hi ha lectures registrades -->
+    <div th:if="${#lists.isEmpty(lectures)}" class="alert-info">
+        <p>Encara no tens cap lectura registrada. <a th:href="@{/lectures/nova}">Afegeix-ne una!</a></p>
+    </div>
+
+    <!-- Taula de lectures -->
+    <table th:unless="${#lists.isEmpty(lectures)}" class="table">
+        <thead>
+            <tr>
+                <th>Llibre</th>
+                <th>Estat</th>
+                <th>Valoració</th>
+                <th>Data inici</th>
+                <th>Data fi</th>
+                <th>Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="lectura : ${lectures}">
+                <!-- Mostrem el títol del llibre associat a través de la relació @ManyToOne -->
+                <td th:text="${lectura.llibre.titol}">Títol</td>
+
+                <!-- Mostrem l'estat de l'enum amb una classe CSS per distingir-los visualment -->
+                <td>
+                    <span th:text="${lectura.estat}"
+                          th:classappend="${lectura.estat.name() == 'LLEGIT'} ? 'estat-llegit' :
+                                         (${lectura.estat.name() == 'LLEGINT'} ? 'estat-llegint' : 'estat-pendent')">
+                        Estat
+                    </span>
+                </td>
+
+                <!-- Mostrem la valoració com a nombre; si és null mostrem guió -->
+                <td th:text="${lectura.valoracio != null} ? ${lectura.valoracio} + '/5' : '-'">-</td>
+
+                <!-- Les dates es mostren directament; LocalDate ja es renderitza correctament -->
+                <td th:text="${lectura.dataInici} ?: '-'">-</td>
+                <td th:text="${lectura.dataFi} ?: '-'">-</td>
+
+                <td class="accions">
+                    <a th:href="@{/lectures/editar/{id}(id=${lectura.id})}" class="btn btn-sm">Editar</a>
+                    <a th:href="@{/lectures/eliminar/{id}(id=${lectura.id})}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Segur que vols eliminar aquesta lectura?')">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

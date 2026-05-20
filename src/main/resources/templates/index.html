@@ -19,8 +19,35 @@
 <main class="container">
 
     <div class="hero">
-        <h1>Benvingut a la teva Biblioteca Personal</h1>
+        <!-- Subtítol estil editorial, lletres molt espaiades -->
+        <p class="subtitol">Col·lecció personal de lectures</p>
+        <h1>Biblioteca Personal</h1>
+        <!-- Línia decorativa sota el títol -->
+        <div class="hero-divider"></div>
         <p>Gestiona els teus llibres, registra les teves lectures i organitza la teva col·lecció.</p>
+    </div>
+
+    <!-- Estadístiques globals de la col·lecció -->
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-num" th:text="${totalLlibres}">0</span>
+            <span class="stat-label">Llibres</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+            <span class="stat-num" th:text="${totalLlegits}">0</span>
+            <span class="stat-label">Llegits</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+            <span class="stat-num" th:text="${totalLlegint}">0</span>
+            <span class="stat-label">Llegint ara</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+            <span class="stat-num" th:text="${totalPendent}">0</span>
+            <span class="stat-label">Pendents</span>
+        </div>
     </div>
 
     <!-- Targetes d'accés ràpid a les seccions -->
@@ -37,6 +64,12 @@
             <h2>Afegir llibre</h2>
             <p>Registra un nou llibre a la teva biblioteca.</p>
             <a th:href="@{/llibres/nou}" class="btn">Nou llibre</a>
+        </div>
+
+        <div class="card">
+            <h2>Lectures</h2>
+            <p>Segueix el teu progrés de lectura i deixa les teves ressenyes.</p>
+            <a th:href="@{/lectures}" class="btn">Veure lectures</a>
         </div>
 
     </div>

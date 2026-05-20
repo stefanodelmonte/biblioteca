@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--
+  form.html — Formulari per registrar o editar una lectura.
+  El mateix formulari serveix per crear i editar:
+  si la lectura té id és una edició, si no és nova.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head(${lectura.id != null} ? 'Editar lectura' : 'Nova lectura')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1 th:text="${lectura.id != null} ? 'Editar lectura' : 'Nova lectura'">Formulari</h1>
+    </div>
+
+    <!--
+      th:action decideix la URL de destí del POST:
+        - Nova lectura  → POST /lectures/nova
+        - Editar        → POST /lectures/editar/{id}
+    -->
+    <form th:action="${lectura.id != null}
+                      ? @{/lectures/editar/{id}(id=${lectura.id})}
+                      : @{/lectures/nova}"
+          th:object="${lectura}"
+          method="post"
+          class="form-card">
+
+        <!-- ── Llibre (obligatori) ─────────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="llibre">Llibre <span class="obligatori">*</span></label>
+            <!--
+              El selector de llibres carrega tots els llibres disponibles.
+              th:value envia l'id del llibre, th:text mostra el títol.
+              th:selected marca el llibre actual quan s'edita.
+            -->
+            <select id="llibre" name="llibre.id" th:errorclass="is-invalid">
+                <option value="">-- Selecciona un llibre --</option>
+                <option th:each="ll : ${totslLlibres}"
+                        th:value="${ll.id}"
+                        th:text="${ll.titol}"
+                        th:selected="${lectura.llibre != null and lectura.llibre.id == ll.id}">
+                    Llibre
+                </option>
+            </select>
+            <span class="error" th:if="${#fields.hasErrors('llibre')}"
+                  th:errors="*{llibre}">Error llibre</span>
+        </div>
+
+        <!-- ── Estat (obligatori) ──────────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="estat">Estat <span class="obligatori">*</span></label>
+            <!--
+              th:each itera sobre els valors de l'enum EstatLectura:
+              LLEGIT, LLEGINT, PENDENT
+            -->
+            <select id="estat" th:field="*{estat}" th:errorclass="is-invalid">
+                <option value="">-- Selecciona l'estat --</option>
+                <option th:each="e : ${estats}"
+                        th:value="${e}"
+                        th:text="${e}">
+                    Estat
+                </option>
+            </select>
+            <span class="error" th:if="${#fields.hasErrors('estat')}"
+                  th:errors="*{estat}">Error estat</span>
+        </div>
+
+        <!-- ── Valoració 1-5 (opcional) ───────────────────────────────────── -->
+        <div class="form-group">
+            <label for="valoracio">Valoració (1-5)</label>
+            <input type="number" id="valoracio" th:field="*{valoracio}"
+                   min="1" max="5" placeholder="Ex: 4"/>
+        </div>
+
+        <!-- ── Data d'inici (opcional) ────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="dataInici">Data d'inici</label>
+            <!-- type="date" mostra el selector de calendari del navegador -->
+            <input type="date" id="dataInici" th:field="*{dataInici}"/>
+        </div>
+
+        <!-- ── Data de fi (opcional) ──────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="dataFi">Data de fi</label>
+            <input type="date" id="dataFi" th:field="*{dataFi}"/>
+        </div>
+
+        <!-- ── Ressenya (opcional) ────────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="ressenya">Ressenya</label>
+            <!-- textarea per a textos llargs -->
+            <textarea id="ressenya" th:field="*{ressenya}"
+                      rows="4" placeholder="Escriu la teva opinió sobre el llibre..."></textarea>
+        </div>
+
+        <!-- ── Botons d'acció ─────────────────────────────────────────────── -->
+        <div class="form-actions">
+            <button type="submit" class="btn">Desar</button>
+            <a th:href="@{/lectures}" class="btn btn-secondary">Cancel·lar</a>
+        </div>
+
+        <p class="nota-obligatori"><span class="obligatori">*</span> Camps obligatoris</p>
+
+    </form>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

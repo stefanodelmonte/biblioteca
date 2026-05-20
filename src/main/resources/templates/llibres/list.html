@@ -17,17 +17,27 @@
 
     <div class="page-header">
         <h1>Els meus llibres</h1>
-        <!-- Botó per anar al formulari de creació d'un nou llibre -->
         <a th:href="@{/llibres/nou}" class="btn">+ Nou llibre</a>
     </div>
 
-    <!-- ── Taula de llibres ──────────────────────────────────────────────── -->
+    <!-- ── Cerca per títol o autor ──────────────────────────────────────── -->
     <!--
-      th:if / th:unless permeten mostrar contingut condicionalment.
-      Si no hi ha llibres, mostrem un missatge; si n'hi ha, mostrem la taula.
+      El formulari envia un GET amb el paràmetre ?cerca=
+      que el controlador llegeix per filtrar els resultats.
     -->
+    <form th:action="@{/llibres}" method="get" class="cerca-form">
+        <input type="text" name="cerca" th:value="${cerca}"
+               placeholder="Cerca per títol o autor..."
+               class="cerca-input"/>
+        <button type="submit" class="btn btn-sm">Cerca</button>
+        <!-- Si hi ha cerca activa, mostrem un botó per netejar el filtre -->
+        <a th:if="${cerca != ''}" th:href="@{/llibres}" class="btn btn-sm btn-secondary">Netejar</a>
+    </form>
+
+    <!-- ── Taula de llibres ──────────────────────────────────────────────── -->
     <div th:if="${#lists.isEmpty(llibres)}" class="alert-info">
-        <p>Encara no tens cap llibre registrat. <a th:href="@{/llibres/nou}">Afegeix-ne un!</a></p>
+        <p th:if="${cerca != ''}">Cap resultat per "<span th:text="${cerca}"></span>".</p>
+        <p th:unless="${cerca != ''}">Encara no tens cap llibre registrat. <a th:href="@{/llibres/nou}">Afegeix-ne un!</a></p>
     </div>
 
     <table th:unless="${#lists.isEmpty(llibres)}" class="table">
@@ -69,9 +79,8 @@
                     <span th:if="${#sets.isEmpty(llibre.categories)}">-</span>
                 </td>
                 <td class="accions">
-                    <!-- Botó editar: inclou l'id del llibre a la URL -->
+                    <a th:href="@{/llibres/{id}(id=${llibre.id})}" class="btn btn-sm btn-secondary">Detall</a>
                     <a th:href="@{/llibres/editar/{id}(id=${llibre.id})}" class="btn btn-sm">Editar</a>
-                    <!-- Botó eliminar amb confirmació JavaScript per evitar eliminacions accidentals -->
                     <a th:href="@{/llibres/eliminar/{id}(id=${llibre.id})}"
                        class="btn btn-sm btn-danger"
                        onclick="return confirm('Segur que vols eliminar aquest llibre?')">

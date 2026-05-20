@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+  detall.html — Vista de detall d'un llibre.
+  Mostra tota la informació del llibre i les lectures associades.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head(${llibre.titol})}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1 th:text="${llibre.titol}">Títol del llibre</h1>
+        <div class="accions">
+            <a th:href="@{/llibres/editar/{id}(id=${llibre.id})}" class="btn btn-sm">Editar</a>
+            <a th:href="@{/llibres}" class="btn btn-sm btn-secondary">Tornar</a>
+        </div>
+    </div>
+
+    <!-- ── Informació del llibre ─────────────────────────────────────────── -->
+    <div class="detall-grid">
+
+        <div class="detall-card">
+            <h2>Informació</h2>
+            <dl class="detall-dl">
+                <dt>Autor</dt>
+                <dd th:text="${llibre.autor}">—</dd>
+
+                <dt>ISBN</dt>
+                <dd th:text="${llibre.isbn} ?: '—'">—</dd>
+
+                <dt>Pàgines</dt>
+                <dd th:text="${llibre.pagines} ?: '—'">—</dd>
+
+                <dt>Any de publicació</dt>
+                <dd th:text="${llibre.anyPublicacio} ?: '—'">—</dd>
+
+                <dt>Idioma</dt>
+                <dd th:text="${llibre.idioma} ?: '—'">—</dd>
+
+                <dt>Categories</dt>
+                <dd>
+                    <span th:if="${#sets.isEmpty(llibre.categories)}">—</span>
+                    <span th:each="cat, iterStat : ${llibre.categories}">
+                        <span th:text="${cat.nom}">Cat</span><span th:if="${!iterStat.last}">, </span>
+                    </span>
+                </dd>
+            </dl>
+        </div>
+
+        <!-- ── Lectures associades ───────────────────────────────────────── -->
+        <div class="detall-card">
+            <h2>Lectures registrades</h2>
+
+            <div th:if="${#lists.isEmpty(lectures)}" class="alert-info" style="margin-top:1rem;">
+                <p>No tens cap lectura registrada per a aquest llibre.
+                   <a th:href="@{/lectures/nova}">Afegeix-ne una!</a></p>
+            </div>
+
+            <table th:unless="${#lists.isEmpty(lectures)}" class="table" style="margin-top:1rem;">
+                <thead>
+                    <tr>
+                        <th>Estat</th>
+                        <th>Valoració</th>
+                        <th>Inici</th>
+                        <th>Fi</th>
+                        <th>Accions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="lectura : ${lectures}">
+                        <td>
+                            <span th:text="${lectura.estat}"
+                                  th:classappend="${lectura.estat.name() == 'LLEGIT'} ? 'estat-llegit' :
+                                                 (${lectura.estat.name() == 'LLEGINT'} ? 'estat-llegint' : 'estat-pendent')">
+                                Estat
+                            </span>
+                        </td>
+                        <td th:text="${lectura.valoracio != null} ? ${lectura.valoracio} + '/5' : '—'">—</td>
+                        <td th:text="${lectura.dataInici} ?: '—'">—</td>
+                        <td th:text="${lectura.dataFi} ?: '—'">—</td>
+                        <td class="accions">
+                            <a th:href="@{/lectures/editar/{id}(id=${lectura.id})}" class="btn btn-sm">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Ressenya de la lectura més recent (si en té) -->
+            <div th:each="lectura : ${lectures}" th:if="${lectura.ressenya != null and !lectura.ressenya.isBlank()}">
+                <p class="detall-ressenya-label">Ressenya</p>
+                <p class="detall-ressenya" th:text="${lectura.ressenya}"></p>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

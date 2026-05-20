@@ -38,4 +38,19 @@ public class LecturaService {
     public void eliminar(Long id) {
         lecturaRepository.deleteById(id);
     }
+
+    /** Retorna el nombre total de lectures. */
+    public long comptar() {
+        return lecturaRepository.count();
+    }
+
+    /** Compta les lectures amb un estat concret (per a les estadístiques de la home). */
+    public long comptarPerEstat(com.example.biblioteca.model.EstatLectura estat) {
+        return lecturaRepository.countByEstat(estat);
+    }
+
+    /** Retorna totes les lectures associades a un llibre concret. */
+    public java.util.List<Lectura> llistarPerLlibre(Long llibreId) {
+        return lecturaRepository.findByLlibreId(llibreId);
+    }
 }

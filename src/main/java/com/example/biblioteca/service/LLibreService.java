@@ -39,4 +39,20 @@ public class LlibreService {
     public void eliminar(Long id) {
         llibreRepository.deleteById(id);
     }
+
+    /** Retorna el nombre total de llibres. */
+    public long comptar() {
+        return llibreRepository.count();
+    }
+
+    /**
+     * Cerca llibres pel títol o l'autor (cerca parcial, insensible a majúscules).
+     * Si el text és buit retorna tots els llibres.
+     */
+    public List<Llibre> cercar(String text) {
+        if (text == null || text.isBlank()) {
+            return llibreRepository.findAll();
+        }
+        return llibreRepository.findByTitolContainingIgnoreCaseOrAutorContainingIgnoreCase(text, text);
+    }
 }

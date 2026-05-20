@@ -1,6 +1,7 @@
 package com.example.biblioteca.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +23,14 @@ public class Lectura {
     @Column(columnDefinition = "TEXT")
     private String ressenya;
 
+    // @NotNull valida que l'estat sigui obligatori (no pot ser null al formulari)
+    @NotNull(message = "L'estat és obligatori")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstatLectura estat;
 
+    // @NotNull valida que la lectura sempre estigui associada a un llibre
+    @NotNull(message = "El llibre és obligatori")
     @ManyToOne
     @JoinColumn(name = "llibre_id", nullable = false)
     private Llibre llibre;
