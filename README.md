@@ -27,7 +27,7 @@ L'usuari pot:
 | Tecnologia | Versió | Ús |
 |---|---|---|
 | **Java** | 21 | Llenguatge base |
-| **Spring Boot** | 3.5.x | Framework de l'aplicació |
+| **Spring Boot** | 4.0.6 | Framework de l'aplicació |
 | **JPA + Hibernate** | — | Mapeig objecte-relacional (ORM) |
 | **MySQL** | 8.x | Base de dades relacional |
 | **Thymeleaf** | — | Motor de plantilles (vistes HTML) |
