@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+  list.html — Llistat de totes les categories.
+  Mostra el nom, la descripció i el nombre de llibres associats.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Categories')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>Categories</h1>
+        <a th:href="@{/categories/nova}" class="btn">+ Nova categoria</a>
+    </div>
+
+    <!-- Missatge si no hi ha categories -->
+    <div th:if="${#lists.isEmpty(categories)}" class="alert-info">
+        <p>Encara no tens cap categoria creada. <a th:href="@{/categories/nova}">Crea-ne una!</a></p>
+    </div>
+
+    <!-- Taula de categories -->
+    <table th:unless="${#lists.isEmpty(categories)}" class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Descripció</th>
+                <th>Llibres</th>
+                <th>Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categories}">
+                <td th:text="${categoria.nom}">Nom</td>
+                <td th:text="${categoria.descripcio} ?: '—'">—</td>
+                <!-- Nombre de llibres associats a aquesta categoria -->
+                <td th:text="${#sets.size(categoria.llibres)}">0</td>
+                <td class="accions">
+                    <a th:href="@{/categories/editar/{id}(id=${categoria.id})}" class="btn btn-sm">Editar</a>
+                    <a th:href="@{/categories/eliminar/{id}(id=${categoria.id})}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Segur que vols eliminar aquesta categoria?')">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

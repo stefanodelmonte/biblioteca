@@ -37,7 +37,7 @@ public class LecturaController {
      */
     @GetMapping
     public String llistar(Model model) {
-        model.addAttribute("lectures", lecturaService.llistarTotes());
+        model.addAttribute("lectures", lecturaService.llistarTots());
         return "lectures/list";
     }
 

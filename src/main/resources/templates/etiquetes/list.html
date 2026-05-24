@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+  list.html — Llistat de totes les etiquetes.
+  Mostra el nom i el nombre de lectures associades.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Etiquetes')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>Etiquetes</h1>
+        <a th:href="@{/etiquetes/nova}" class="btn">+ Nova etiqueta</a>
+    </div>
+
+    <!-- Missatge si no hi ha etiquetes -->
+    <div th:if="${#lists.isEmpty(etiquetes)}" class="alert-info">
+        <p>Encara no tens cap etiqueta creada. <a th:href="@{/etiquetes/nova}">Crea-ne una!</a></p>
+    </div>
+
+    <!-- Taula d'etiquetes -->
+    <table th:unless="${#lists.isEmpty(etiquetes)}" class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Lectures associades</th>
+                <th>Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="etiqueta : ${etiquetes}">
+                <td th:text="${etiqueta.nom}">Nom</td>
+                <!-- Nombre de lectures que tenen aquesta etiqueta -->
+                <td th:text="${#sets.size(etiqueta.lectures)}">0</td>
+                <td class="accions">
+                    <a th:href="@{/etiquetes/editar/{id}(id=${etiqueta.id})}" class="btn btn-sm">Editar</a>
+                    <a th:href="@{/etiquetes/eliminar/{id}(id=${etiqueta.id})}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Segur que vols eliminar aquesta etiqueta?')">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

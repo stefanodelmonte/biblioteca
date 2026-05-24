@@ -12,7 +12,7 @@ import java.util.Optional;
  * S'injecta als controllers que necessitin accedir a la base de dades de llibres.
  */
 @Service
-public class LlibreService {
+public class LlibreService implements ServeiCrud<Llibre> {
 
     private final LlibreRepository llibreRepository;
 

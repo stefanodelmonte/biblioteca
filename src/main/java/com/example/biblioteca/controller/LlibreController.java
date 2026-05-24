@@ -68,7 +68,7 @@ public class LlibreController {
         // Passem un objecte buit perquè Thymeleaf el pugui fer servir al formulari
         model.addAttribute("llibre", new Llibre());
         // Passem totes les categories per al selector múltiple
-        model.addAttribute("toutesCategories", categoriaService.llistarTotes());
+        model.addAttribute("toutesCategories", categoriaService.llistarTots());
         return "llibres/form";
     }
 
@@ -85,7 +85,7 @@ public class LlibreController {
                              Model model) {
         // Si hi ha errors de validació, tornem al formulari mostrant-los
         if (resultat.hasErrors()) {
-            model.addAttribute("toutesCategories", categoriaService.llistarTotes());
+            model.addAttribute("toutesCategories", categoriaService.llistarTots());
             return "llibres/form";
         }
         llibreService.guardar(llibre);
@@ -105,7 +105,7 @@ public class LlibreController {
         Llibre llibre = llibreService.buscarPerId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Llibre no trobat: " + id));
         model.addAttribute("llibre", llibre);
-        model.addAttribute("toutesCategories", categoriaService.llistarTotes());
+        model.addAttribute("toutesCategories", categoriaService.llistarTots());
         return "llibres/form";
     }
 
@@ -119,7 +119,7 @@ public class LlibreController {
                                 BindingResult resultat,
                                 Model model) {
         if (resultat.hasErrors()) {
-            model.addAttribute("toutesCategories", categoriaService.llistarTotes());
+            model.addAttribute("toutesCategories", categoriaService.llistarTots());
             return "llibres/form";
         }
         // Assignem l'id perquè JPA faci UPDATE i no INSERT

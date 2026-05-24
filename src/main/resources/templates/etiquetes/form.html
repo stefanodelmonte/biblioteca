@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+  form.html — Formulari per crear o editar una etiqueta.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head(${etiqueta.id != null} ? 'Editar etiqueta' : 'Nova etiqueta')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1 th:text="${etiqueta.id != null} ? 'Editar etiqueta' : 'Nova etiqueta'">Formulari</h1>
+    </div>
+
+    <form th:action="${etiqueta.id != null}
+                      ? @{/etiquetes/editar/{id}(id=${etiqueta.id})}
+                      : @{/etiquetes/nova}"
+          th:object="${etiqueta}"
+          method="post"
+          class="form-card">
+
+        <!-- ── Nom (obligatori) ────────────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="nom">Nom <span class="obligatori">*</span></label>
+            <input type="text" id="nom" th:field="*{nom}"
+                   th:errorclass="is-invalid"
+                   placeholder="Ex: Favorit, Recomanat, Rellegir..."/>
+            <span class="error" th:if="${#fields.hasErrors('nom')}"
+                  th:errors="*{nom}">Error nom</span>
+        </div>
+
+        <!-- ── Botons d'acció ─────────────────────────────────────────────── -->
+        <div class="form-actions">
+            <button type="submit" class="btn">Desar</button>
+            <a th:href="@{/etiquetes}" class="btn btn-secondary">Cancel·lar</a>
+        </div>
+
+        <p class="nota-obligatori"><span class="obligatori">*</span> Camps obligatoris</p>
+
+    </form>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

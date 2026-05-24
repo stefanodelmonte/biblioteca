@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+  form.html — Formulari per crear o editar una categoria.
+  El mateix formulari serveix per crear i editar:
+  si la categoria té id és una edició, si no és nova.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head(${categoria.id != null} ? 'Editar categoria' : 'Nova categoria')}"></th:block>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1 th:text="${categoria.id != null} ? 'Editar categoria' : 'Nova categoria'">Formulari</h1>
+    </div>
+
+    <form th:action="${categoria.id != null}
+                      ? @{/categories/editar/{id}(id=${categoria.id})}
+                      : @{/categories/nova}"
+          th:object="${categoria}"
+          method="post"
+          class="form-card">
+
+        <!-- ── Nom (obligatori) ────────────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="nom">Nom <span class="obligatori">*</span></label>
+            <input type="text" id="nom" th:field="*{nom}"
+                   th:errorclass="is-invalid"
+                   placeholder="Ex: Fantasia, Ciència-ficció, Història..."/>
+            <span class="error" th:if="${#fields.hasErrors('nom')}"
+                  th:errors="*{nom}">Error nom</span>
+        </div>
+
+        <!-- ── Descripció (opcional) ──────────────────────────────────────── -->
+        <div class="form-group">
+            <label for="descripcio">Descripció</label>
+            <textarea id="descripcio" th:field="*{descripcio}"
+                      rows="3" placeholder="Descriu el tipus de llibres d'aquesta categoria..."></textarea>
+        </div>
+
+        <!-- ── Botons d'acció ─────────────────────────────────────────────── -->
+        <div class="form-actions">
+            <button type="submit" class="btn">Desar</button>
+            <a th:href="@{/categories}" class="btn btn-secondary">Cancel·lar</a>
+        </div>
+
+        <p class="nota-obligatori"><span class="obligatori">*</span> Camps obligatoris</p>
+
+    </form>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>
